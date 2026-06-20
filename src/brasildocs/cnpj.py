@@ -21,6 +21,8 @@ def validar_cnpj(cnpj: str) -> bool:
     return True
 
 def gerar_cnpj(qtd : int) -> list[str]:
+    if qtd <= 0:
+        raise ValueError("A quantidade de documentos a ser gerada deve ser maior que zero.")
     import random
     cnpjs = []
     for _ in range(qtd):
