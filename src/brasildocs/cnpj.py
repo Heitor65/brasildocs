@@ -1,3 +1,5 @@
+import random
+
 def desformatar_cnpj(cnpj: str) -> str:
     return cnpj.replace('.', '').replace('/', '').replace('-', '')
 
@@ -24,7 +26,7 @@ def validar_cnpj(cnpj: str) -> bool:
 def gerar_cnpj(qtd : int) -> list[str]:
     if qtd <= 0:
         raise ValueError("A quantidade de documentos a ser gerada deve ser maior que zero.")
-    import random
+    
     cnpjs = []
     for _ in range(qtd):
         cnpj = ''.join(str(random.randint(0, 9)) for _ in range(12))

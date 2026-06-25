@@ -1,3 +1,5 @@
+import random
+
 def desformatar_cpf(cpf: str) -> str:
     return ''.join(filter(str.isdigit, cpf))
 
@@ -27,7 +29,7 @@ def validar_cpf(cpf: str) -> bool:
 def gerar_cpf(qtd : int) -> list[str]:
     if qtd <= 0:
         raise ValueError("A quantidade de documentos a ser gerada deve ser maior que zero.")
-    import random
+    
     cpfs = []
     for _ in range(qtd):
         
