@@ -33,6 +33,6 @@ def gerar_cnpj(qtd : int) -> list[str]:
             if digito == 10:
                 digito = 0
             cnpj += str(digito)
-            cnpjs.append(formatar_cnpj(cnpj))
+        cnpjs.append(formatar_cnpj(cnpj))
 
     return cnpjs
