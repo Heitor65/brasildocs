@@ -13,15 +13,18 @@ def validar_cnpj(cnpj: str) -> bool:
     if len(cnpj) != 14 or cnpj == cnpj[0] * 14:
         return False
 
-    for i in range(12, 14):
-        soma = sum(int(cnpj[j]) * (i - j) for j in range(i))
-        digito = (soma * 10) % 11
-        if digito == 10:
-            digito = 0
-        if digito != int(cnpj[i]):
-            return False
+    pesos1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+    pesos2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
 
-    return True
+    soma = sum(int(cnpj[i]) * pesos1[i] for i in range(12))
+    resto = soma % 11
+    digito1 = 0 if resto < 2 else 11 - resto
+
+    soma = sum(int(cnpj[i]) * pesos2[i] for i in range(13))
+    resto = soma % 11
+    digito2 = 0 if resto < 2 else 11 - resto
+
+    return digito1 == int(cnpj[12]) and digito2 == int(cnpj[13])
 
 def gerar_cnpj(qtd : int) -> list[str]:
     if qtd <= 0:
