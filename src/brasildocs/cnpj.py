@@ -26,19 +26,32 @@ def validar_cnpj(cnpj: str) -> bool:
 
     return digito1 == int(cnpj[12]) and digito2 == int(cnpj[13])
 
-def gerar_cnpj(qtd : int) -> list[str]:
+def gerar_cnpj(qtd: int, formatado: bool = False) -> list[str]:
     if qtd <= 0:
         raise ValueError("A quantidade de documentos a ser gerada deve ser maior que zero.")
-    
+
+    def calcular_digito(cnpj_base: str, pesos: list[int]) -> str:
+        soma = sum(int(d) * p for d, p in zip(cnpj_base, pesos))
+        resto = soma % 11
+        return '0' if resto < 2 else str(11 - resto)
+
     cnpjs = []
+    
+    pesos_12 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+    pesos_13 = [6] + pesos_12
+
     for _ in range(qtd):
-        cnpj = ''.join(str(random.randint(0, 9)) for _ in range(12))
-        for i in range(12, 14):
-            soma = sum(int(cnpj[j]) * (i - j) for j in range(i))
-            digito = (soma * 10) % 11
-            if digito == 10:
-                digito = 0
-            cnpj += str(digito)
-        cnpjs.append(formatar_cnpj(cnpj))
+        raiz = ''.join(str(random.randint(0, 9)) for _ in range(8))
+        base = raiz + '0001'
+
+        d1 = calcular_digito(base, pesos_12)
+        d2 = calcular_digito(base + d1, pesos_13)
+
+        cnpj = base + d1 + d2
+
+        if formatado:
+            cnpj = f"{cnpj[:2]}.{cnpj[2:5]}.{cnpj[5:8]}/{cnpj[8:12]}-{cnpj[12:]}"
+
+        cnpjs.append(cnpj)
 
     return cnpjs
