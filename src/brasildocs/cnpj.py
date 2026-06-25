@@ -2,6 +2,7 @@ def desformatar_cnpj(cnpj: str) -> str:
     return cnpj.replace('.', '').replace('/', '').replace('-', '')
 
 def formatar_cnpj(cnpj: str) -> str:
+    cnpj = desformatar_cnpj(cnpj)
     return f"{cnpj[:2]}.{cnpj[2:5]}.{cnpj[5:8]}/{cnpj[8:12]}-{cnpj[12:]}"
 
 def validar_cnpj(cnpj: str) -> bool:
