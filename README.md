@@ -2,8 +2,6 @@
 
 Biblioteca em Python para **validação e geração de documentos brasileiros**, como CPF, CNPJ e outros identificadores comuns no Brasil.
 
-> ⚠️ Projeto em desenvolvimento.
-
 ---
 
 ## 🚀 Funcionalidades
